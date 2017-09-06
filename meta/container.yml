@@ -1,0 +1,10 @@
+---
+version: '2'
+services:
+  nginx:
+    image: sa-uwsgi-container-www:latest
+    ports:
+      - 3000:3000
+    user: nginx
+    command: ['/usr/bin/dumb-init', '/control/uwsgi_application_start.sh']
+

@@ -1,0 +1,23 @@
+version: "2"
+settings:
+  conductor_base: ubuntu:16.04
+  volumes:
+   - temp-space:/tmp   # Used to copy static content between containers
+
+services:
+   api:
+     from: ubuntu:16.04
+     container_name: api
+     expose:
+       - "8000"
+     roles:
+       - {
+           role: "softasap.sa-uwsgi-container"
+         }
+       - {
+           role: "../standalone-fallback"
+         }
+
+volumes:
+  temp-space:
+    docker: {}

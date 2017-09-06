@@ -1,0 +1,15 @@
+---
+
+  - name: UWSGI | pip install UWSGI
+    pip: name=uwsgi
+    tags:
+      - uwsgi
+
+  - name: UWSGI | Create configuration directories
+    file: path="{{item}}" state=directory
+    with_items:
+      - "/etc/uwsgi/apps-available"
+      - "/etc/uwsgi/apps-enabled"
+      - "/etc/uwsgi/vassals"
+    tags:
+      - uwsgi

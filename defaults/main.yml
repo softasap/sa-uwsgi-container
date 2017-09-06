@@ -1,0 +1,5 @@
+---
+# defaults file for sa-uwsgi-container
+
+role_dir: "{{ role_path }}"
+option_install_python: true
