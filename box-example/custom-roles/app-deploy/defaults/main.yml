@@ -14,7 +14,7 @@ project_additional_py_path: "{{project_conf_directory}}:{{project_directory}}/sa
 
 project_wsgi_file: "{{project_directory}}/sampleapp/wsgi.py"
 
-project_repo: "https://github.com/voronenko-p/django-sample.git"
+# project_repo: "https://github.com/voronenko-p/django-sample.git"
 
 project_domain: django.voronenko.net
 

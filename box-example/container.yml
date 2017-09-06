@@ -24,6 +24,11 @@ services:
        - {
            role: "softasap.sa-uwsgi-container"
          }
+       - {
+           role: "../custom-roles/app-deploy",
+           project_user: "uwsgi",
+           project_source_origin: "/src/deployables/application"
+         } 
    nginx:
      from: 'ubuntu:16.04'
      roles:

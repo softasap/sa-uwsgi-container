@@ -11,18 +11,15 @@
       recurse: yes
       owner: "{{project_user}}"
       group: "{{project_user}}"
-    become: yes
 
   - name: Project APP | create directories
-    file: path="/home/{{project_user}}/{{item}}" state=directory
+    file: path="/home/{{project_user}}/{{item}}" state=directory owner="{{project_user}}" group="{{project_user}}"
     with_items:
       - "data/private_files"
       - "wsgi"
       - "conf"
       - "scripts"
       - "collected_static"
-    become: yes
-    become_user: "{{ project_user }}"
 
     # conf and scripts contain passwords, must be kept private, data is obviously private as well
 
@@ -32,4 +29,3 @@
       - "data"
       - "conf"
       - "scripts"
-    become: yes
