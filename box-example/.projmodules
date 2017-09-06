@@ -3,8 +3,10 @@
         url = https://github.com/softasap/sa-nginx-container.git
 [submodule "roles/sa-uwsgi-container"]
         path = roles/softasap.sa-uwsgi-container
-        url = https://github.com/softasap/sa-nginx-container.git
+        url = https://github.com/softasap/sa-uwsgi-container.git
 [submodule "roles/sa-include"]
         path = roles/softasap.sa-include
         url = https://github.com/softasap/sa-include.git
-
+[submodule "deployables/application"]
+        path = deployables/application
+        url = https://github.com/voronenko-p/django-sample.git

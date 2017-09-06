@@ -1,7 +1,11 @@
 ---
 # tasks file for sa-uwsgi-container
 
+  - include: tasks_uwsgi_pre_docker.yml
+
   - include: tasks_python.yml
     when: option_install_python
 
   - include: tasks_uwsgi.yml  
+
+#  - include: tasks_uwsgi_post_docker.yml

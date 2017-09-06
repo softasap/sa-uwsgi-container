@@ -3,6 +3,16 @@ settings:
   conductor_base: ubuntu:16.04
   volumes:
    - temp-space:/tmp   # Used to copy static content between containers
+   - .:/deployables
+
+defaults:
+  DB_USER: django
+  DB_PASSWORD: sesame
+  DB_DB: django
+  DJANGO_ROOT: /django
+  DJANGO_USER: django
+  APP_PORT: 8080
+  DJANGO_VENV: /venv
 
 services:
    api:
@@ -14,10 +24,22 @@ services:
        - {
            role: "softasap.sa-uwsgi-container"
          }
-       - {
-           role: "../standalone-fallback"
-         }
-
+   nginx:
+     from: 'ubuntu:16.04'
+     roles:
+      - {
+          role: "softasap.sa-nginx-container"
+        }     
+     ports:
+      - '{{ APP_PORT }}:8000'
+#     links:
+#      - api
+     volumes:
+       - .:/deployables
+     dev_overrides:
+       ports: []
+       command: /bin/false
+         
 volumes:
   temp-space:
     docker: {}

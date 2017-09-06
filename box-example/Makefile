@@ -56,5 +56,12 @@ push:
 	@docker push softasap/sa-container-box-examples:$(ROLE_NAME).$(ROLE_VERSION)
 	@docker push softasap/sa-container-box-examples:$(ROLE_NAME).latest
 
+sh-conductor:
+	until [ "`/usr/bin/docker inspect -f {{.State.Running}} $(ROLE_NAME)_conductor`"=="true" ]; do \
+	sleep 0.1; \
+        echo "Waiting for $(ROLE_NAME)..." \
+	done; \
+	docker exec -it $(ROLE_NAME)_conductor /bin/sh
+
 .PHONY: all clean initialize build run stop
 
