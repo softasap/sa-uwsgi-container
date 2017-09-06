@@ -1,5 +1,18 @@
 ---
 
+  - block:
+
+    - name: UWSGI | install dependencies
+      apt: name="{{item}}" state="present"
+      with_items:
+        - libssl-dev
+      tags:
+        - uwsgi
+
+    when: ansible_os_family == "Debian"
+
+
+
   - name: UWSGI | pip install UWSGI
     pip: name=uwsgi
     tags:

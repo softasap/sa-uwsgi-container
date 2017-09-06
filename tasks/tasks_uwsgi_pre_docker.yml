@@ -16,3 +16,11 @@
       group: root
       createhome: no
 
+  - block:
+
+    - name: usually missing packages in docker images
+      apt: pkg="apt-utils" state="present" update_cache="yes"
+
+    when: ansible_os_family == "Debian"
+
+

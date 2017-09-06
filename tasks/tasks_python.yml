@@ -27,10 +27,10 @@
       tags:
         -python
 
-    - name: Python | virtualenvwrapper console support
-      apt: pkg="virtualenvwrapper" state="latest"
-      tags:
-        -python
+#    - name: Python | virtualenvwrapper console support
+#      apt: pkg="virtualenvwrapper" state="latest"
+#      tags:
+#        -python
 
     - name: Python | install ca-certificates
       package: name="ca-certificates" state=present
