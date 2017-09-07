@@ -1,10 +1,16 @@
 ---
 
-option_create_new_virtualenv: false # create new virtual env per deploy run
+role_no_become: true
+
+role_dir: "{{role_path}}"
+
+option_create_new_virtualenv: true  # create new virtual env per deploy run
 # option_skip_migrations  # specify to skip migrations
 
 processes: 2
 max_processes: 4
+
+project_python:  "/usr/bin/python"
 
 project_virtualenv_directory: "/home/{{project_user}}/venvs"
 project_directory: "/home/{{project_user}}/project"
@@ -16,7 +22,7 @@ project_wsgi_file: "{{project_directory}}/sampleapp/wsgi.py"
 
 # project_repo: "https://github.com/voronenko-p/django-sample.git"
 
-project_domain: django.voronenko.net
+# project_domain: django.voronenko.net
 
 project_run_mode: uwsgi # gunicorn
 
@@ -25,4 +31,3 @@ project_secret: "sTewNFaRtHILAWaGemoGrEStALTreshEnSodALMhUNCOcTuR"
 database_user: "{{project_user}}"
 database_password: "{{project_user}}"
 database_host: "localhost"
-

@@ -24,17 +24,17 @@ services:
        - {
            role: "softasap.sa-uwsgi-container"
          }
-       - {
-           role: "../custom-roles/app-deploy",
-           project_user: "uwsgi",
-           project_source_origin: "/src/deployables/application"
-         } 
+      #  - {
+      #      role: "../custom-roles/app-deploy",
+      #      project_user: "uwsgi",
+      #      project_source_origin: "/src/deployables/application"
+      #    }
    nginx:
      from: 'ubuntu:16.04'
      roles:
       - {
           role: "softasap.sa-nginx-container"
-        }     
+        }
      ports:
       - '{{ APP_PORT }}:8000'
 #     links:
@@ -44,7 +44,7 @@ services:
      dev_overrides:
        ports: []
        command: /bin/false
-         
+
 volumes:
   temp-space:
     docker: {}
