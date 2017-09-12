@@ -2,7 +2,7 @@
 # defaults file for sa-uwsgi-container
 
 role_dir: "{{ role_path }}"
-option_install_python: true
+option_install_python: false
 
 container_user: uwsgi
 container_uid: 1000
