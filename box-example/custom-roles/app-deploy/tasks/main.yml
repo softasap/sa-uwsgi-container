@@ -15,5 +15,5 @@
   - include: create_uwsgi_vassal.yml
 
 # Not needed for docker
-#  - include: "{{root_dir}}/components/create_nginx_conf_uwsgi.yml"
+#  - include: "{{role_dir}}/components/create_nginx_conf_uwsgi.yml"
 
