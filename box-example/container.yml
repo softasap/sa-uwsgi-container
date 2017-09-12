@@ -3,48 +3,68 @@ settings:
   conductor_base: ubuntu:16.04
   volumes:
    - temp-space:/tmp   # Used to copy static content between containers
-   - .:/deployables
 
 defaults:
   DB_USER: django
-  DB_PASSWORD: sesame
+  DB_PASSWORD: django
   DB_DB: django
-  DJANGO_ROOT: /django
-  DJANGO_USER: django
+#  DJANGO_ROOT: /django
+#  DJANGO_USER: django
   APP_PORT: 8080
-  DJANGO_VENV: /venv
+#  DJANGO_VENV: /venv
 
 services:
+   db:
+     from: postgres:9.4
+     environment:
+       POSTGRES_USER: "{{ DB_USER }}"
+       POSTGRES_PASSWORD: "{{ DB_PASSWORD }}"
+       POSTGRES_DB: "{{ DB_DB }}"
+     volumes:
+       - postgres-space:/var/lib/postgresql/data
    api:
-     from: ubuntu:16.04
+     from: softasap/ubuntu:16.04.python27.latest
+#     from: ubuntu:16.04
      container_name: api
+     command: "/home/uwsgi/scripts/run_worker.sh"
      expose:
        - "8000"
      roles:
        - {
-           role: "softasap.sa-uwsgi-container"
+           role: "softasap.sa-uwsgi-container",
+           option_install_python: false
          }
-      #  - {
-      #      role: "../custom-roles/app-deploy",
-      #      project_user: "uwsgi",
-      #      project_source_origin: "/src/deployables/application"
-      #    }
+       - {
+           role: "../custom-roles/app-deploy",
+           project_user: "uwsgi",
+
+           project_source_origin: "/src/deployables/application"
+         }
+     depends_on:
+        - db
+     environment:
+        IN_DOCKER: 1         
    nginx:
      from: 'ubuntu:16.04'
+     container_name: nginx
      roles:
       - {
           role: "softasap.sa-nginx-container"
         }
      ports:
       - '{{ APP_PORT }}:8000'
-#     links:
-#      - api
-     volumes:
-       - .:/deployables
+     links:
+      - api
      dev_overrides:
        ports: []
        command: /bin/false
+     depends_on:
+        - api
+
 
 volumes:
   temp-space:
     docker: {}
+  postgres-space:
+    docker: {}
+

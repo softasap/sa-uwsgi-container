@@ -10,10 +10,11 @@ option_create_new_virtualenv: true  # create new virtual env per deploy run
 processes: 2
 max_processes: 4
 
-project_python:  "/usr/bin/python"
+project_python:  "/usr/bin/python2.7"
 
 project_virtualenv_directory: "/home/{{project_user}}/venvs"
-project_directory: "/home/{{project_user}}/project"
+project_directory_base: "/home/{{project_user}}"
+project_directory: "{{project_directory_base}}/application"
 project_conf_directory: "/home/{{project_user}}/conf"
 project_user: "projectuser"
 project_additional_py_path: "{{project_conf_directory}}:{{project_directory}}/sampleapp/apps"
@@ -30,4 +31,4 @@ project_secret: "sTewNFaRtHILAWaGemoGrEStALTreshEnSodALMhUNCOcTuR"
 
 database_user: "{{project_user}}"
 database_password: "{{project_user}}"
-database_host: "localhost"
+database_host: "db"

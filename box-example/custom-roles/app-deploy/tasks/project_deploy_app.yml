@@ -12,7 +12,7 @@
   - name: Project APP | Copy application source
     synchronize:
       src: "{{project_source_origin}}"
-      dest: "{{project_directory}}"
+      dest: "{{project_directory_base}}"
       mode: push
     when: project_source_origin is defined
     become: "{{ 'no' if role_no_become is defined else 'yes' }}"

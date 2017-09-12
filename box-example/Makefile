@@ -12,15 +12,10 @@ all: clean_build
 
 clean_build: clean initialize build
 
-build:  p-env/bin/ansible-container build_container
+build:  p-env/bin/ansible-container
 	@echo p-env/bin/ansible-container --debug --project-name $(ROLE_NAME) build --roles-path ./roles/ -- -vvv
 	@p-env/bin/ansible-container --debug --project-name $(ROLE_NAME) build --roles-path ./roles/ -- -vvv
 	@echo "Application docker image was build"
-
-build_container:
-	@echo Building "$(ROLE_NAME)" version $(ROLE_VERSION)
-	@echo ===============================================
-	@echo Is there way to skip conductor rebuild each time? Submit PR
 
 run:  p-env/bin/ansible-container
 	@echo p-env/bin/ansible-container --debug --project-name $(ROLE_NAME) run --roles-path ./roles/ -- -vvv
