@@ -16,6 +16,10 @@
       group: root
       createhome: no
 
+  - group:
+      name: "{{container_user}}"
+      state: present
+
   - block:
 
     - name: usually missing packages in docker images
