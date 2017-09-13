@@ -1,0 +1,30 @@
+---
+  - name: Container Setup | Install dumb init
+    get_url:
+      url: https://github.com/Yelp/dumb-init/releases/download/v{{ dumb_init_version }}/dumb-init_{{ dumb_init_version }}_amd64
+      dest: /usr/bin/dumb-init
+      owner: root
+      group: root
+      mode: 0775
+      validate_certs: False
+    when: container_init == "dumb-init"
+
+  - name: Container Setup | Update container user
+    user:
+      name: "{{container_user}}"
+      uid: "{{container_uid}}"
+      group: root
+      createhome: no
+
+  - group:
+      name: "{{container_user}}"
+      state: present
+
+  - block:
+
+    - name: usually missing packages in docker images
+      apt: pkg="apt-utils" state="present" update_cache="yes"
+
+    when: ansible_os_family == "Debian"
+
+

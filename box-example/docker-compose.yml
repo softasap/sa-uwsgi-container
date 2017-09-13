@@ -1,0 +1,44 @@
+---
+version: '3.1'
+
+services:
+
+   db:
+     image: postgres:9.4
+     environment:
+       POSTGRES_USER: "uwsgi"
+       POSTGRES_PASSWORD: "uwsgi"
+       POSTGRES_DB: "uwsgi"
+     volumes:
+       - postgres-space:/var/lib/postgresql/data
+
+   api:
+     image: sa-uwsgi-container-api:latest
+     container_name: api
+     command: ['/usr/bin/dumb-init', '/home/uwsgi/scripts/runworker.sh']     
+     expose:
+       - "8000"
+     depends_on:
+        - db
+     volumes:
+        - temp-space:/tmp   # Used to copy static content between containers
+     environment:
+        IN_DOCKER: "1"         
+
+   nginx:
+     image: sa-uwsgi-container-nginx:latest
+     container_name: nginx
+     command: ['/usr/bin/dumb-init', 'nginx', '-c', '/etc/nginx/nginx.conf']
+     volumes:
+        - temp-space:/tmp   # Used to copy static content between container
+     ports:
+      - 8080:8000
+     links:
+      - api
+#     depends_on:
+#        - api
+
+volumes:
+  temp-space:
+  postgres-space:
+

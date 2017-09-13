@@ -1,0 +1,5 @@
+---
+
+  - apt: pkg="libpq-dev" state="present"
+
+  - apt: pkg="netcat-traditional" state="present"  

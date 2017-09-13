@@ -1,0 +1,6 @@
+---
+  - name: SupervisorD | template scripts/runworker.sh
+    template: src="{{role_dir}}/templates/scripts/runworker.sh.j2" dest="/home/{{project_user}}/scripts/runworker.sh" mode=770 owner="{{project_user}}"
+
+  - name: SupervisorD | /home/{{project_user}}/scripts/uwsgi.ini
+    template: src="{{role_dir}}/templates/uwsgi/vassal.ini.j2" dest="/home/{{project_user}}/scripts/uwsgi.ini"

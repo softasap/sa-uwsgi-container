@@ -1,0 +1,5 @@
+---
+
+  - name: Project Tools | Create activate
+    template: src="{{role_dir}}/templates/activate.j2" dest="/home/{{project_user}}/activate" owner="{{project_user}}" group="{{project_user}}"
+    become: "{{ 'no' if role_no_become is defined else 'yes' }}"
