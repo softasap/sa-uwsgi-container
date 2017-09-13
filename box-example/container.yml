@@ -34,7 +34,7 @@ services:
            option_install_python: false
          }
        - {
-           role: "../custom-roles/app-deploy",
+           role: "../custom-roles/app-api-deploy",
            project_user: "uwsgi",
            project_source_origin: "/src/deployables/application"
            tags: [api]
