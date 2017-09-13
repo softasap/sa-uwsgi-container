@@ -8,12 +8,10 @@ defaults:
   DB_USER: django
   DB_PASSWORD: django
   DB_DB: django
-#  DJANGO_ROOT: /django
-#  DJANGO_USER: django
   APP_PORT: 8080
-#  DJANGO_VENV: /venv
 
 services:
+
    db:
      from: postgres:9.4
      environment:
@@ -22,10 +20,11 @@ services:
        POSTGRES_DB: "{{ DB_DB }}"
      volumes:
        - postgres-space:/var/lib/postgresql/data
+
    api:
      from: softasap/ubuntu:16.04.python27.latest
      container_name: api
-     command: "/home/uwsgi/scripts/run_worker.sh"
+     command: "/home/uwsgi/scripts/runworker.sh"
      expose:
        - "8000"
      roles:
@@ -37,12 +36,14 @@ services:
            role: "../custom-roles/app-api-deploy",
            project_user: "uwsgi",
            project_source_origin: "/src/deployables/application"
-           tags: [api]
          }
      depends_on:
         - db
+     volumes:
+        - temp-space:/tmp   # Used to copy static content between containers
      environment:
         IN_DOCKER: "1"         
+
    nginx:
      from: 'ubuntu:16.04'
      container_name: nginx
@@ -50,6 +51,12 @@ services:
       - {
           role: "softasap.sa-nginx-container"
         }
+      - {
+          role: "../custom-roles/app-nginx-deploy"
+        }
+
+     volumes:
+        - temp-space:/tmp   # Used to copy static content between container
      ports:
       - '{{ APP_PORT }}:8000'
      links:

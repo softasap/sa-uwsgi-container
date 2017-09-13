@@ -1,6 +1,6 @@
 ---
 
-  - apt: pkg="libpq-dev" state="present"
+  - include: project_pre_docker.yml
 
   - include: project_appuser_create.yml
 

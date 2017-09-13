@@ -1,5 +1,8 @@
 #!/bin/bash
-. {{project_virtualenv_directory}}/bin/activate
+
+set -e
+
+. {{project_virtualenv_directory}}/current/bin/activate
 cd {{project_directory}}
 
 # hakish, but wait for db container to be really up
@@ -7,4 +10,4 @@ while ! nc -w 1 -z db 5432; do sleep 0.1; done;
 
 USER={{project_user}} PYTHONPATH={{project_additional_py_path}} python manage.py migrate --settings=commands
 
-uwsgi --ini uwsgi.ini
+uwsgi --ini {{project_directory_base}}/scripts/uwsgi.ini
