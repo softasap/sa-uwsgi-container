@@ -24,7 +24,6 @@ services:
        - postgres-space:/var/lib/postgresql/data
    api:
      from: softasap/ubuntu:16.04.python27.latest
-#     from: ubuntu:16.04
      container_name: api
      command: "/home/uwsgi/scripts/run_worker.sh"
      expose:
@@ -37,13 +36,13 @@ services:
        - {
            role: "../custom-roles/app-deploy",
            project_user: "uwsgi",
-
            project_source_origin: "/src/deployables/application"
+           tags: [api]
          }
      depends_on:
         - db
      environment:
-        IN_DOCKER: 1         
+        IN_DOCKER: "1"         
    nginx:
      from: 'ubuntu:16.04'
      container_name: nginx
