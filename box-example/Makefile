@@ -44,12 +44,16 @@ initialize:
 	@init_quick.sh
 
 tag:
-	@docker tag $(ROLE_NAME)-uwsgi:latest softasap/sa-container-box-examples:$(ROLE_NAME).$(ROLE_VERSION)
-	@docker tag $(ROLE_NAME)-uwsgi:latest softasap/sa-container-box-examples:$(ROLE_NAME).latest
+	@docker tag $(ROLE_NAME)-api:latest softasap/sa-container-box-examples:$(ROLE_NAME).api.$(ROLE_VERSION)
+	@docker tag $(ROLE_NAME)-api:latest softasap/sa-container-box-examples:$(ROLE_NAME).api.latest
+	@docker tag $(ROLE_NAME)-nginx:latest softasap/sa-container-box-examples:$(ROLE_NAME).nginx.$(ROLE_VERSION)
+	@docker tag $(ROLE_NAME)-nginx:latest softasap/sa-container-box-examples:$(ROLE_NAME).nginx.latest
 
 push:
-	@docker push softasap/sa-container-box-examples:$(ROLE_NAME).$(ROLE_VERSION)
-	@docker push softasap/sa-container-box-examples:$(ROLE_NAME).latest
+	@docker push softasap/sa-container-box-examples:$(ROLE_NAME).api.$(ROLE_VERSION)
+	@docker push softasap/sa-container-box-examples:$(ROLE_NAME).api.latest
+	@docker push softasap/sa-container-box-examples:$(ROLE_NAME).nginx.$(ROLE_VERSION)
+	@docker push softasap/sa-container-box-examples:$(ROLE_NAME).nginx.latest
 
 sh-conductor:
 	until [ "`/usr/bin/docker inspect -f {{.State.Running}} $(ROLE_NAME)_conductor`"=="true" ]; do \
