@@ -11,10 +11,10 @@ env:
   - container=ubuntu-xenial
 
 # whitelist
-branches:
-  only:
-    - master
-    - develop
+#branches:
+#  only:
+#    - master
+#    - develop
 
 services:
   - docker
