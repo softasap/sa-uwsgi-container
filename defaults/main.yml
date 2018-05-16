@@ -8,4 +8,4 @@ container_user: uwsgi
 container_uid: 1000
 container_init: "dumb-init" # to support phusion at later stages
 dumb_init_version: "1.2.0"
-
+# uwsgi_pip:  pip3

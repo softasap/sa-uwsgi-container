@@ -25,6 +25,34 @@ image that will display 'OK' on connect - check it out:
 
 [![](https://github.com/play-with-docker/stacks/raw/cff22438cb4195ace27f9b15784bbb497047afa7/assets/images/button.png)](http://play-with-docker.com?stack=https://raw.githubusercontent.com/softasap/sa-uwsgi-container/master/box-example/docker-compose-try.yml)
 
+Simple:
+
+```YAML
+     roles:
+       - {
+           role: "softasap.sa-uwsgi-container",
+           option_install_python: false
+         }
+```
+
+
+Advanced:
+
+
+```YAML
+     roles:
+       - {
+           role: "softasap.sa-uwsgi-container",
+           option_install_python: false,
+           container_user: uwsgi,
+           container_uid: 1000,
+           container_init: "dumb-init" # derived | dumb-init,
+           dumb_init_version: "1.2.0",
+           # uwsgi_pip:  pip3
+         }
+```
+
+
 
 Temporary hints
 ---------------
